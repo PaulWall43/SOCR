@@ -1,0 +1,60 @@
+#!/bin/bash
+#WILL MAKE THIS PARAMETER AND CONSTANT
+MAXCOUNT=19
+count=0
+BOARD=() 
+echo "$MAXCOUNT random numbers:"
+#echo "-----------------"
+
+
+#while [ "$count" -le $MAXCOUNT ]      # Generate 10 ($MAXCOUNT) random integers.
+#do
+#  number=$RANDOM
+#  echo $number
+#  let "count += 1"  # Increment count.
+#done
+#echo "-----------------"
+
+echo F = Forest
+echo P = Plain
+echo W = Wheat
+echo D = Desert
+echo O = Ore
+echo B = Brick
+#Create array with all resources
+RESOURCES=(F F F F S S S S D 
+	W W W W B B B O O O)
+#Change this to a while loop
+while [ $count -lt $MAXCOUNT ]
+do
+	#NUMBER=random number between MAXCOUNT
+	#(MAXCOUNT is most resources possible)
+	NUMBER=$(($RANDOM%(MAXCOUNT)))
+	#if value at this part of array is null then skip
+	if [ -z "${RESOURCES[NUMBER]}" ]
+	then
+	continue
+	fi
+	
+	BOARD+=(${RESOURCES[NUMBER]}) 	
+	#echo ${RESOURCES[NUMBER]} #Print value at this location
+	unset RESOURCES[NUMBER] #Set that location to 0
+	((count++))  
+	#echo ${RESOURCES[NUMBER]} 
+done
+
+if [ $MAXCOUNT -eq 19 ] #Then it's the regular Settlers
+then 
+	#echo      ${BOARD[0]}
+	#echo	 ${BOARD[1]} ${BOARD[2]}
+	#echo
+	echo ______________
+	echo 1____${BOARD[0]} ${BOARD[1]} ${BOARD[2]}____
+	echo 2___${BOARD[3]} ${BOARD[4]} ${BOARD[5]} ${BOARD[6]}___	
+	echo 3__${BOARD[7]} ${BOARD[8]} ${BOARD[9]} ${BOARD[10]} ${BOARD[11]}__	
+	echo 4___${BOARD[12]} ${BOARD[13]} ${BOARD[14]} ${BOARD[15]}___
+	echo 5____${BOARD[16]} ${BOARD[17]} ${BOARD[18]}____
+    	echo ______________
+fi
+echo done  
+#HAVE TO FIX THE LOOP THEN DISPLAY INFO IN INTUITIVE MANNER  
